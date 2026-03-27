@@ -1,0 +1,4 @@
+CREATE TABLE IF NOT EXISTS chats (id BIGSERIAL PRIMARY KEY, type VARCHAR(16) NOT NULL, name VARCHAR(256), description VARCHAR(512) DEFAULT '', avatar_initials VARCHAR(4) DEFAULT 'XX', created_by BIGINT, created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(), invite_link VARCHAR(64) UNIQUE);
+CREATE TABLE IF NOT EXISTS chat_members (id BIGSERIAL PRIMARY KEY, chat_id BIGINT NOT NULL, user_id BIGINT NOT NULL, role VARCHAR(16) NOT NULL DEFAULT 'member', joined_at TIMESTAMPTZ NOT NULL DEFAULT NOW(), UNIQUE (chat_id, user_id));
+CREATE INDEX IF NOT EXISTS idx_chat_members_user_id ON chat_members(user_id);
+CREATE INDEX IF NOT EXISTS idx_chat_members_chat_id ON chat_members(chat_id);

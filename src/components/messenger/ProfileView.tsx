@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import Icon from '@/components/ui/icon';
 
-export default function ProfileView() {
+export default function ProfileView({ user }: { user?: { display_name?: string; username?: string; avatar_initials?: string; bio?: string } }) {
   const [editing, setEditing] = useState(false);
-  const [name, setName] = useState('Иван Петров');
-  const [username, setUsername] = useState('@ivan_petrov');
+  const [name, setName] = useState(user?.display_name || 'Пользователь');
+  const [username, setUsername] = useState(user?.username ? `@${user.username}` : '@username');
   const [bio, setBio] = useState('Разработчик · Москва');
 
   return (

@@ -1,0 +1,12 @@
+{
+  "tests": [
+    {
+      "name": "Get pending call unauthorized",
+      "method": "GET",
+      "path": "/",
+      "expectedStatus": 401,
+      "expectedBody": {"error": "string"},
+      "bodyMatcher": "partial"
+    }
+  ]
+}

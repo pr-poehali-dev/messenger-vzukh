@@ -1,0 +1,4 @@
+CREATE TABLE IF NOT EXISTS calls (id BIGSERIAL PRIMARY KEY, caller_id BIGINT NOT NULL, callee_id BIGINT, chat_id BIGINT, call_type VARCHAR(8) NOT NULL DEFAULT 'audio', status VARCHAR(16) NOT NULL DEFAULT 'pending', started_at TIMESTAMPTZ NOT NULL DEFAULT NOW(), ended_at TIMESTAMPTZ, offer_sdp TEXT, answer_sdp TEXT);
+CREATE TABLE IF NOT EXISTS call_ice_candidates (id BIGSERIAL PRIMARY KEY, call_id BIGINT NOT NULL, user_id BIGINT NOT NULL, candidate TEXT NOT NULL, created_at TIMESTAMPTZ NOT NULL DEFAULT NOW());
+CREATE INDEX IF NOT EXISTS idx_calls_callee ON calls(callee_id);
+CREATE INDEX IF NOT EXISTS idx_ice_call ON call_ice_candidates(call_id);

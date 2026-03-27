@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Icon from '@/components/ui/icon';
 
-export default function SettingsView() {
+export default function SettingsView({ onLogout }: { onLogout?: () => void }) {
   const [notifications, setNotifications] = useState(true);
   const [e2e, setE2e] = useState(true);
   const [twoFa, setTwoFa] = useState(false);
@@ -75,7 +75,7 @@ export default function SettingsView() {
           </div>
         </div>
 
-        <button className="w-full p-4 bg-destructive/10 text-destructive rounded-2xl text-sm font-medium hover:bg-destructive/20 transition-colors border border-destructive/20">
+        <button onClick={onLogout} className="w-full p-4 bg-destructive/10 text-destructive rounded-2xl text-sm font-medium hover:bg-destructive/20 transition-colors border border-destructive/20">
           Выйти из аккаунта
         </button>
       </div>

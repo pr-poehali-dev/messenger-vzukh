@@ -2,7 +2,12 @@ import { useState } from 'react';
 import { CONTACTS, Contact } from './data';
 import Icon from '@/components/ui/icon';
 
-export default function ContactsView() {
+interface Props {
+  onStartCall?: (name: string, avatar: string, type: 'audio' | 'video', calleeId: number) => void;
+  onChat?: (userId: number) => void;
+}
+
+export default function ContactsView({ onStartCall, onChat }: Props) {
   const [selected, setSelected] = useState<Contact | null>(null);
 
   return (
@@ -84,11 +89,17 @@ export default function ContactsView() {
             </div>
 
             <div className="flex gap-3 w-full">
-              <button className="flex-1 flex items-center justify-center gap-2 h-11 bg-primary rounded-2xl text-white text-sm font-medium hover:bg-primary/90 transition-colors">
+              <button
+                onClick={() => onChat && onChat(parseInt(selected.id))}
+                className="flex-1 flex items-center justify-center gap-2 h-11 bg-primary rounded-2xl text-white text-sm font-medium hover:bg-primary/90 transition-colors"
+              >
                 <Icon name="MessageCircle" size={16} />
                 Написать
               </button>
-              <button className="flex-1 flex items-center justify-center gap-2 h-11 bg-secondary rounded-2xl text-foreground text-sm font-medium hover:bg-secondary/80 transition-colors">
+              <button
+                onClick={() => onStartCall && onStartCall(selected.name, selected.avatar, 'audio', parseInt(selected.id))}
+                className="flex-1 flex items-center justify-center gap-2 h-11 bg-secondary rounded-2xl text-foreground text-sm font-medium hover:bg-secondary/80 transition-colors"
+              >
                 <Icon name="Phone" size={16} />
                 Позвонить
               </button>
